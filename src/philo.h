@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rocky <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/14 17:47:20 by rocky             #+#    #+#             */
+/*   Updated: 2024/08/14 17:47:30 by rocky            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -24,30 +36,31 @@ typedef struct s_cmds
 
 typedef struct s_phil_stats
 {
-	t_cmds			*p;
-	int					id;
-	t_msec				die_time;
-	t_msec				eat_time;
-	pthread_mutex_t		left_fork;
-	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		*first_fork;
-	pthread_mutex_t		*secondfork;
-	pthread_mutex_t		times_eaten_m;
-	int					times_eaten;
-	pthread_mutex_t		*pr;
-	struct s_thread_stats	*data;
+	struct s_thread_stats			*data;
+	pthread_mutex_t					*right_fork;
+	pthread_mutex_t					*first_fork;
+	pthread_mutex_t					*secondfork;
+	pthread_mutex_t					times_eaten_m;
+	pthread_mutex_t					*pr;
+	pthread_mutex_t					left_fork;
+	t_msec							die_time;
+	t_msec							eat_time;
+	t_cmds							*p;
+	int								id;
+	int								times_eaten;
 }	t_phil_stats;
 
 typedef struct s_thread_stats
 {
 	bool			is_dead;
-	t_phil_stats		*philos;
+	t_phil_stats	*philos;
 	pthread_t		*threads;
 	int				count;
 	pthread_mutex_t	printing;
 }	t_thread_stats;
 
-enum	e_actions {
+enum	e_actions
+{
 	e_fork = 0,
 	e_eating = 1,
 	e_sleeping = 2,
