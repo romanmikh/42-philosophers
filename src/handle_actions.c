@@ -14,7 +14,7 @@
 
 // Simulates the philosopher eating by picking up second fork + locks mutex
 // Updates the last meal time & increments the eat count
-// Philo needs to START (not finish) eating by time_to_die
+// Philo needs to finish eating by time_to_die
 // Updates time_to_die & waits till done eating
 // Unlocks mutexes (puts forks down)
 void	handle_eating(t_phil_stats *m)

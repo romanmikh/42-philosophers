@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-// Runs the main activity loop of each philo
+// Runs the main activity loop of each philosopher
 // Pick up first fork so no other philo can use it simultaneously
 // Check if enough time to finish eating before dying. If not, proceed to die
 // After eating, check if enough time to sleep before dying. If not, dies
@@ -44,7 +44,7 @@ int	philosopher_table_routine(t_phil_stats *m)
 	return (1);
 }
 
-// The routine function executed by each philosopher's thread
+// The routine function executed by each philosopher's thread in pthread_create
 // Initialise die_time for each philo
 // Even numbered philos wait 1 time_to_eat before reaching for forks
 // Starts infinite loop with time offset between odd and even philos

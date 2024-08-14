@@ -77,8 +77,8 @@ int		validate_int(int sign, int *n);
 int		convert_str_to_long_long(const char *str, t_msec *n);
 int		validate_long_long(int sign, t_msec *n);
 //utils.c
-void	initialize_philosophers(t_phil_stats *philos, t_cmds *inpparams, int i);
-int		initialize_philo_runner(t_thread_stats *philo_r, t_cmds *inpparams);
+void	initialize_philosophers(t_phil_stats *philos, t_cmds *cmd_args, int i);
+int		initialize_philo_runner(t_thread_stats *philo_r, t_cmds *cmd_args);
 void	print_philo_action(t_phil_stats *m, enum e_actions print);
 void	cleanup_philo_runner(t_thread_stats *philo_r);
 //logic.c
