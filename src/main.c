@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rocky <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/14 16:33:08 by rocky             #+#    #+#             */
+/*   Updated: 2024/08/14 16:35:42 by rocky            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	print_input_error_msg(void)
@@ -35,18 +47,18 @@ int	parse_and_save_args(int argc, char **argv, t_cmds *inpparams)
 }
 
 /*
-1. Parse and validate input
-2. Handle input errors
-3. Initialise simulation
-4. Single philosopher edge case (picks up one fork, dies lmao)
-5. Create threads
-6. Wait for threads to finish
-7. Clean up resources
+ * 1. Parse and validate input
+ * 2. Handle input errors
+ * 3. Initialise simulation
+ * 4. Single philosopher edge case (picks up one fork, dies lmao)
+ * 5. Create threads
+ * 6. Wait for threads to finish
+ * 7. Clean up resources
 */
 int	main(int argc, char **argv)
 {
-	t_cmds	inpparams;
 	t_thread_stats	philo_r;
+	t_cmds			inpparams;
 
 	if (parse_and_save_args(argc, argv, &inpparams))
 	{

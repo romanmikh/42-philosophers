@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rocky <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/14 16:39:14 by rocky             #+#    #+#             */
+/*   Updated: 2024/08/14 17:21:33 by rocky            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // Sets up philo's ID, forks, and mutexes based on their position at the table
@@ -53,16 +65,15 @@ int	initialize_philo_runner(t_thread_stats *philo_r, t_cmds *inpparams)
 
 void	print_philo_action(t_phil_stats *m, enum e_actions print)
 {
-	const char	*msg[] = {
-		"ha cogido un tenedor", "esta comiendo", "esta durmiendo",
-		"esta filosofando", "se ha palmao"};
-	const char	*emoji[] = {
-		"🍴", "🍝", "😴", "🤔", "💀"};
+	const char	*msg[] = {"ha cogido un tenedor", "esta comiendo",
+		"esta durmiendo", "esta filosofando", "se ha palmao"};
+	const char	*emoji[] = {"🍴", "🍝", "😴", "🤔", "💀"};
 
 	pthread_mutex_lock(m->pr);
 	if (m->data->is_dead != true && print == 4)
 	{
-		printf("\033[1;32m%lld \033[0m\033[1;34m%d\033[0m %s %s\n", get_current_time() - m->p->start_time, m->id + 1,
+		printf(RED"%lld \033[0m\033[1;34m%d\033[0m %s %s\n",
+			get_current_time() - m->p->start_time, m->id + 1,
 			msg[(int)print], emoji[(int)print]);
 		m->data->is_dead = true;
 		pthread_mutex_unlock(m->pr);
@@ -75,13 +86,14 @@ void	print_philo_action(t_phil_stats *m, enum e_actions print)
 	}
 	else
 	{
-		printf("\033[1;32m%lld \033[0m\033[1;34m%d\033[0m %s %s\n", get_current_time() - m->p->start_time, m->id + 1,
+		printf(RED"%lld \033[0m\033[1;34m%d\033[0m %s %s\n",
+				get_current_time() - m->p->start_time, m->id + 1,
 			msg[(int)print], emoji[(int)print]);
 		pthread_mutex_unlock(m->pr);
 	}
 }
 
-// Frees all allocated resources and destroys mutexes to clean up after the simulation ends
+// Frees all allocated resources and destroys mutexes to clean u
 void	cleanup_philo_runner(t_thread_stats *philo_r)
 {
 	int	i;

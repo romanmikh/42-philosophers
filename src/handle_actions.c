@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_actions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rocky <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/14 16:32:14 by rocky             #+#    #+#             */
+/*   Updated: 2024/08/14 16:32:21 by rocky            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 // Simulates the philosopher eating by picking up second fork + locks mutex
@@ -38,4 +50,3 @@ void	handle_dying(t_phil_stats *m)
 	wait_for_duration(m->die_time);
 	print_philo_action(m, 4);
 }
-
