@@ -4,7 +4,7 @@ B_NAME	= philo_bonus
 CFLAGS	= -Werror -Wall -Wextra -pthread
 
 # File Variables
-SRCS	= philo.c time.c my_atoi.c my_atoll.c philo_utils.c philo_run.c philo_actions.c
+SRCS	= main.c format_converters.c time.c utils.c handle_actions.c logic.c
 B_SRCS	= philo_bonus.c my_atoi_bonus.c my_atoll_bonus.c philo_utils_bonus.c philo_run_bonus.c
 OBJS	= ${SRCS:.c=.o}
 B_OBJS	= ${B_SRCS:.c=.o}

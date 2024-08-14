@@ -56,28 +56,28 @@ enum	e_print {
 };
 
 //time.c
-t_msec	philo_get_time(void);
-void	u_wait(t_msec waiting_time);
+t_msec	get_current_time(void);
+void	wait_for_duration(t_msec waiting_time);
 //my_atoi.c
-int		my_atoi(const char *str, int *n);
-int		check_int(int sign, int *n);
+int		convert_str_to_int(const char *str, int *n);
+int		validate_int(int sign, int *n);
 //my_atoll.c
-int		my_atoll(const char *str, t_msec *n);
-int		check_ll(int sign, t_msec *n);
+int		convert_str_to_long_long(const char *str, t_msec *n);
+int		validate_long_long(int sign, t_msec *n);
 //philo_utils.c
-void	init_philos(t_philo_m *philos, t_philo_p *inpparams, int i);
-int		philo_r_init(t_philo_run *philo_r, t_philo_p *inpparams);
-void	ft_printing(t_philo_m *m, enum e_print print);
-void	clean_philo_r(t_philo_run *philo_r);
+void	initialize_philosophers(t_philo_m *philos, t_philo_p *inpparams, int i);
+int		initialize_philo_runner(t_philo_run *philo_r, t_philo_p *inpparams);
+void	print_philo_action(t_philo_m *m, enum e_print print);
+void	cleanup_philo_runner(t_philo_run *philo_r);
 //philo_run.c
-int		ft_table(t_philo_m *m);
-void	*philo_routine(void *philo);
-void	philo_r_create(t_philo_run *philo_r);
-void	philo_r_join(t_philo_run *philo_r);
+int		philosopher_table_routine(t_philo_m *m);
+void	*philosopher_thread_routine(void *philo);
+void	create_philosopher_threads(t_philo_run *philo_r);
+void	join_philosopher_threads(t_philo_run *philo_r);
 //philo_actions.c
-void	ft_eating(t_philo_m *m);
-void	ft_sleeping(t_philo_m *m);
-void	ft_thinking(t_philo_m *m);
-void	ft_dying(t_philo_m *m);
+void	handle_eating(t_philo_m *m);
+void	handle_sleeping(t_philo_m *m);
+void	handle_thinking(t_philo_m *m);
+void	handle_dying(t_philo_m *m);
 
 #endif
