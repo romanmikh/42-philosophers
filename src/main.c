@@ -9,27 +9,27 @@ void	print_input_error_msg(void)
 }
 
 // Parses and saves command-line arguments to input parameters structure
-// Sets numtoeat to -1, so infinite unless specified by user
-// Checka cmd args + their types, and numofphilo != 0
-int	parse_and_save_args(int argc, char **argv, t_philo_p *inpparams)
+// Sets max_meal_num to -1, so infinite unless specified by user
+// Checka cmd args + their types, and num_of_ph != 0
+int	parse_and_save_args(int argc, char **argv, t_cmds *inpparams)
 {
-	inpparams->numtoeat = -1;
+	inpparams->max_meal_num = -1;
 	if (argc != 6 && argc != 5)
 		return (1);
-	if (convert_str_to_int(argv[1], &inpparams->numofphilo))
+	if (convert_str_to_int(argv[1], &inpparams->num_of_ph))
 		return (1);
-	if (convert_str_to_long_long(argv[2], &inpparams->timetodie))
+	if (convert_str_to_long_long(argv[2], &inpparams->time_to_die))
 		return (1);
-	if (convert_str_to_long_long(argv[3], &inpparams->timetoeat))
+	if (convert_str_to_long_long(argv[3], &inpparams->time_to_eat))
 		return (1);
-	if (convert_str_to_long_long(argv[4], &inpparams->timetosleep))
+	if (convert_str_to_long_long(argv[4], &inpparams->time_to_sleep))
 		return (1);
 	if (argc == 6)
 	{
-		if (convert_str_to_int(argv[5], &inpparams->numtoeat))
+		if (convert_str_to_int(argv[5], &inpparams->max_meal_num))
 			return (1);
 	}
-	if (inpparams->numofphilo == 0 || inpparams->numtoeat == 0)
+	if (inpparams->num_of_ph == 0 || inpparams->max_meal_num == 0)
 		return (1);
 	return (0);
 }
@@ -45,21 +45,21 @@ int	parse_and_save_args(int argc, char **argv, t_philo_p *inpparams)
 */
 int	main(int argc, char **argv)
 {
-	t_philo_p	inpparams;
-	t_philo_run	philo_r;
+	t_cmds	inpparams;
+	t_thread_stats	philo_r;
 
 	if (parse_and_save_args(argc, argv, &inpparams))
 	{
 		print_input_error_msg();
 		return (0);
 	}
-	inpparams.timeatstart = get_current_time();
+	inpparams.start_time = get_current_time();
 	initialize_philo_runner(&philo_r, &inpparams);
-	if (inpparams.numofphilo == 1)
+	if (inpparams.num_of_ph == 1)
 	{
 		print_philo_action(philo_r.philos, 0);
-		wait_for_duration(inpparams.timeatstart + inpparams.timetodie);
-		printf("%lld %d died\n", get_current_time() - inpparams.timeatstart, 1);
+		wait_for_duration(inpparams.start_time + inpparams.time_to_die);
+		printf("%lld %d died\n", get_current_time() - inpparams.start_time, 1);
 		return (0);
 	}
 	create_philosopher_threads(&philo_r);

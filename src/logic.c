@@ -7,22 +7,22 @@
 // If enough time, sleeps and then thinks
 // int pthread_mutex_lock(pthread_mutex_t *mutex);, 
 // mutex = "mutual exclusion" to shared resource, "grabs the key, reserving it"
-int	philosopher_table_routine(t_philo_m *m)
+int	philosopher_table_routine(t_phil_stats *m)
 {
 	pthread_mutex_lock(m->first_fork);
-	if (get_current_time() + m->p->timetoeat <= m->die_time
-		&& (m->times_eaten < m->p->numtoeat || m->p->numtoeat == -1))
+	if (get_current_time() + m->p->time_to_eat <= m->die_time
+		&& (m->times_eaten < m->p->max_meal_num || m->p->max_meal_num == -1))
 		handle_eating(m);
 	else
 	{
 		pthread_mutex_unlock(m->first_fork);
-		if (get_current_time() + m->p->timetoeat > m->die_time)
+		if (get_current_time() + m->p->time_to_eat > m->die_time)
 			handle_dying(m);
 		return (0);
 	}
-	if (get_current_time() + m->p->timetosleep > m->die_time)
+	if (get_current_time() + m->p->time_to_sleep > m->die_time)
 	{
-		m->die_time -= m->p->timetoeat;
+		m->die_time -= m->p->time_to_eat;
 		handle_dying(m);
 		return (0);
 	}
@@ -34,17 +34,17 @@ int	philosopher_table_routine(t_philo_m *m)
 
 // The routine function executed by each philosopher's thread
 // Initialise die_time for each philo
-// Even numbered philos wait 1 timetoeat before reaching for forks
+// Even numbered philos wait 1 time_to_eat before reaching for forks
 // Starts infinite loop with time offset between odd and even philos
 // Dinner aprty ends when someone dies or everyone has eaten enough
 void	*philosopher_thread_routine(void *philo)
 {
-	t_philo_m	*m;
+	t_phil_stats	*m;
 
-	m = (t_philo_m *)philo;
-	m->die_time = m->p->timeatstart + m->p->timetodie;
+	m = (t_phil_stats *)philo;
+	m->die_time = m->p->start_time + m->p->time_to_die;
 	if (m->id % 2 == 0)
-		wait_for_duration(get_current_time() + m->p->timetoeat);
+		wait_for_duration(get_current_time() + m->p->time_to_eat);
 	while (1)
 	{
 		if (philosopher_table_routine(m) == 0 || m->data->is_dead == 1)
@@ -58,7 +58,7 @@ void	*philosopher_thread_routine(void *philo)
 // void *(*start_routine) (void *), void *arg);
 // Creates new thread (program running independently within a larger one). 
 // Passes a pointer to a routine function to execute when thread is created
-void	create_philosopher_threads(t_philo_run *philo_r)
+void	create_philosopher_threads(t_thread_stats *philo_r)
 {
 	int	i;
 
@@ -74,7 +74,7 @@ void	create_philosopher_threads(t_philo_run *philo_r)
 // Ensures main program waits for all tgreads to finish
 // int pthread_join(pthread_t thread, void **retval);
 // Just waits for each thread to finish
-void	join_philosopher_threads(t_philo_run *philo_r)
+void	join_philosopher_threads(t_thread_stats *philo_r)
 {
 	int	i;
 
