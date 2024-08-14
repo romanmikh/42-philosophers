@@ -23,8 +23,8 @@ void	handle_eating(t_phil_stats *m)
 	pthread_mutex_lock(m->secondfork);
 	print_philo_action(m, 0);
 	print_philo_action(m, 1);
-	m->die_time = get_current_time() + m->p->time_to_die + m->p->time_to_eat;
-	wait_for_duration(get_current_time() + m->p->time_to_eat);
+	m->die_time = now() + m->p->time_to_die + m->p->time_to_eat;
+	wait_for_duration(now() + m->p->time_to_eat);
 	if (m->p->max_meal_num != -1)
 		m->times_eaten += 1;
 	pthread_mutex_unlock(m->secondfork);
@@ -35,7 +35,7 @@ void	handle_eating(t_phil_stats *m)
 void	handle_sleeping(t_phil_stats *m)
 {
 	print_philo_action(m, 2);
-	wait_for_duration(get_current_time() + m->p->time_to_sleep);
+	wait_for_duration(now() + m->p->time_to_sleep);
 }
 
 // Simulates thinking by printing the thinking action (no waiting)

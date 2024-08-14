@@ -6,7 +6,7 @@
 /*   By: rocky <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:39:14 by rocky             #+#    #+#             */
-/*   Updated: 2024/08/14 17:21:33 by rocky            ###   ########.fr       */
+/*   Updated: 2024/08/14 17:34:49 by rocky            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,17 @@ int	initialize_philo_runner(t_thread_stats *philo_r, t_cmds *inpparams)
 	return (0);
 }
 
-void	print_philo_action(t_phil_stats *m, enum e_actions print)
+void	print_philo_action(t_phil_stats *m, enum e_actions pt)
 {
 	const char	*msg[] = {"ha cogido un tenedor", "esta comiendo",
 		"esta durmiendo", "esta filosofando", "se ha palmao"};
 	const char	*emoji[] = {"🍴", "🍝", "😴", "🤔", "💀"};
 
 	pthread_mutex_lock(m->pr);
-	if (m->data->is_dead != true && print == 4)
+	if (m->data->is_dead != true && pt == 4)
 	{
-		printf(RED"%lld \033[0m\033[1;34m%d\033[0m %s %s\n",
-			get_current_time() - m->p->start_time, m->id + 1,
-			msg[(int)print], emoji[(int)print]);
+		printf(RED"%lld"CYA" %d "RESET"%s %s\n", now()
+			- m->p->start, m->id + 1, msg[(int)pt], emoji[(int)pt]);
 		m->data->is_dead = true;
 		pthread_mutex_unlock(m->pr);
 		return ;
@@ -86,9 +85,8 @@ void	print_philo_action(t_phil_stats *m, enum e_actions print)
 	}
 	else
 	{
-		printf(RED"%lld \033[0m\033[1;34m%d\033[0m %s %s\n",
-				get_current_time() - m->p->start_time, m->id + 1,
-			msg[(int)print], emoji[(int)print]);
+		printf(RED"%lld"CYA" %d "RESET"%s %s\n", now()
+			- m->p->start, m->id + 1, msg[(int)pt], emoji[(int)pt]);
 		pthread_mutex_unlock(m->pr);
 	}
 }
@@ -109,4 +107,3 @@ void	cleanup_philo_runner(t_thread_stats *philo_r)
 	free(philo_r->philos);
 	free(philo_r->threads);
 }
-

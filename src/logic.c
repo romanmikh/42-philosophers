@@ -22,17 +22,17 @@
 int	philosopher_table_routine(t_phil_stats *m)
 {
 	pthread_mutex_lock(m->first_fork);
-	if (get_current_time() + m->p->time_to_eat <= m->die_time
+	if (now() + m->p->time_to_eat <= m->die_time
 		&& (m->times_eaten < m->p->max_meal_num || m->p->max_meal_num == -1))
 		handle_eating(m);
 	else
 	{
 		pthread_mutex_unlock(m->first_fork);
-		if (get_current_time() + m->p->time_to_eat > m->die_time)
+		if (now() + m->p->time_to_eat > m->die_time)
 			handle_dying(m);
 		return (0);
 	}
-	if (get_current_time() + m->p->time_to_sleep > m->die_time)
+	if (now() + m->p->time_to_sleep > m->die_time)
 	{
 		m->die_time -= m->p->time_to_eat;
 		handle_dying(m);
@@ -54,9 +54,9 @@ void	*philosopher_thread_routine(void *philo)
 	t_phil_stats	*m;
 
 	m = (t_phil_stats *)philo;
-	m->die_time = m->p->start_time + m->p->time_to_die;
+	m->die_time = m->p->start + m->p->time_to_die;
 	if (m->id % 2 == 0)
-		wait_for_duration(get_current_time() + m->p->time_to_eat);
+		wait_for_duration(now() + m->p->time_to_eat);
 	while (1)
 	{
 		if (philosopher_table_routine(m) == 0 || m->data->is_dead == 1)

@@ -65,13 +65,13 @@ int	main(int argc, char **argv)
 		print_input_error_msg();
 		return (0);
 	}
-	inpparams.start_time = get_current_time();
+	inpparams.start = now();
 	initialize_philo_runner(&philo_r, &inpparams);
 	if (inpparams.num_of_ph == 1)
 	{
 		print_philo_action(philo_r.philos, 0);
-		wait_for_duration(inpparams.start_time + inpparams.time_to_die);
-		printf("%lld %d died\n", get_current_time() - inpparams.start_time, 1);
+		wait_for_duration(inpparams.start + inpparams.time_to_die);
+		printf("%lld %d died\n", now() - inpparams.start, 1);
 		return (0);
 	}
 	create_philosopher_threads(&philo_r);

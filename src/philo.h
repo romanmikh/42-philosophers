@@ -18,7 +18,7 @@ typedef struct s_cmds
 	t_msec		time_to_die;
 	t_msec		time_to_eat;
 	t_msec		time_to_sleep;
-	t_msec		start_time;
+	t_msec		start;
 	int			max_meal_num;
 }	t_cmds;
 
@@ -56,7 +56,7 @@ enum	e_actions {
 };
 
 //time.c
-t_msec	get_current_time(void);
+t_msec	now(void);
 void	wait_for_duration(t_msec waiting_time);
 //format_converters.c
 int		convert_str_to_int(const char *str, int *n);

@@ -13,7 +13,7 @@
 #include "philo.h"
 
 // Return current time in milliseconds using timeval structure for precision
-t_msec	get_current_time(void)
+t_msec	now(void)
 {
 	struct timeval	t;
 
@@ -28,12 +28,12 @@ void	wait_for_duration(t_msec waiting_time)
 {
 	t_msec	t;
 
-	t = get_current_time();
+	t = now();
 	while (waiting_time - t > 5)
 	{
 		usleep(1000 * (waiting_time - t - 5));
-		t = get_current_time();
+		t = now();
 	}
 	while (waiting_time > t)
-		t = get_current_time();
+		t = now();
 }
