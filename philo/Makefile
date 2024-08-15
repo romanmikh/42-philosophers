@@ -13,7 +13,7 @@
 NAME	= philo
 CFLAGS	= -Werror -Wall -Wextra -pthread
 
-SRCS	= main.c format_converters.c time.c utils.c handle_actions.c logic.c
+SRCS	= philo.c format_converters.c time.c utils.c handle_actions.c logic.c
 OBJS	= ${SRCS:.c=.o}
 
 all: $(NAME)

@@ -17,6 +17,8 @@
 // Each philo has a left mutex fork, ensuring only one can use it at a time
 // Last philo's left fork = 1st philo's right fork --> circular table
 // Philos with odd ID pick up right forks, even IDs pick up left forks first
+// int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *att
+// Initialised for fork and times_eaten to prevent race conditions
 void	initialize_philosophers(t_phil_stats *philos, t_cmds *cmd_args, int i)
 {
 	philos->id = i;
@@ -65,8 +67,8 @@ int	initialize_philo_runner(t_thread_stats *philo_r, t_cmds *cmd_args)
 
 void	print_philo_action(t_phil_stats *m, enum e_actions pt)
 {
-	const char	*msg[] = {"ha cogido un tenedor", "esta comiendo",
-		"esta durmiendo", "esta filosofando", "se ha palmao"};
+	const char	*msg[] = {"has picked up a fork", "is eating",
+		"is sleeping", "is thinking", "died"};
 	const char	*emoji[] = {"🍴", "🍝", "😴", "🤔", "💀"};
 
 	pthread_mutex_lock(m->pr);
